@@ -1,3 +1,5 @@
+import 'dart:core';
+
 /// Type of the API result - will simulate result of AppRepo
 enum ApiState {
   /// Is in loading state
@@ -18,9 +20,12 @@ enum ExpectedResult {
   error,
 }
 
+final futureDelay = Future.delayed(Duration(seconds: 2));
+final futureDelayShort = Future.delayed(Duration(seconds: 1));
+
 class AppRepo {
   Future<ApiState> login(ExpectedResult expectedResult) async {
-    await Future.delayed(Duration(seconds: 2));
+    await futureDelay;
 
     ApiState state = from(expectedResult);
 
@@ -29,7 +34,7 @@ class AppRepo {
   }
 
   Future<ApiState> forgotPassword(ExpectedResult expectedResult) async {
-    await Future.delayed(Duration(seconds: 2));
+    await futureDelay;
 
     ApiState state = from(expectedResult);
 
@@ -39,9 +44,17 @@ class AppRepo {
 
   ApiState from(ExpectedResult expectedResult) {
     ApiState state;
-    if (expectedResult == ExpectedResult.success)
+    if (expectedResult == ExpectedResult.success) {
       state = ApiState.success;
-    else if (expectedResult == ExpectedResult.error) state = ApiState.error;
+    } else if (expectedResult == ExpectedResult.error) {
+      state = ApiState.error;
+    }
     return state;
+  }
+}
+
+class CalculatorRepo {
+  Future<int> square(int number) async {
+    return number * number;
   }
 }

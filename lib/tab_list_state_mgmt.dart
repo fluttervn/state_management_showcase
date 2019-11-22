@@ -19,7 +19,7 @@ class ListStateManagementPage extends StatelessWidget {
         final title = mapScreens.keys.elementAt(index);
         return ListTile(
           title: Text(title),
-          trailing: Icon(Icons.arrow_forward_ios),
+          trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
             navigateToPage(context, mapScreens[title]);
           },

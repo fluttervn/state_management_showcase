@@ -68,11 +68,11 @@ class BaseMainScaffold extends StatelessWidget {
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
+                      onPressed: onPressGetStart,
                       child: Text(
                         'Get started',
                         style: TextStyle(fontSize: 18),
                       ),
-                      onPressed: onPressGetStart,
                     ),
                   ),
                 ],
