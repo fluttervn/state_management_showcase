@@ -85,6 +85,44 @@ class BaseMainScaffold extends StatelessWidget {
   }
 }
 
+class BaseHomeScaffold extends StatelessWidget {
+  final String title;
+  final Widget firstContainer;
+  final Widget secondContainer;
+
+  const BaseHomeScaffold({
+    Key key,
+    this.title,
+    this.firstContainer,
+    this.secondContainer,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+//        mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            SizedBox(height: 10),
+            Text('Square Calculator'),
+            Text('Please choose a number to calculate its square'),
+            firstContainer,
+            Text('... or another Square Calculator'),
+            secondContainer,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class InputUsernameFormContainer extends StatelessWidget {
   final List<Widget> children;
 
@@ -288,6 +326,114 @@ class _AppBarWithToggleState extends State<AppBarWithToggle> {
           ],
         ),
       ],
+    );
+  }
+}
+
+class NumberResult extends StatelessWidget {
+  final int inputNumber;
+  final int outputNumber;
+
+  const NumberResult({
+    Key key,
+    this.inputNumber,
+    this.outputNumber,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String result;
+    if (inputNumber < 0) {
+      result = 'Please choose a positive number';
+    } else {
+      result = 'Square of $inputNumber is $outputNumber';
+    }
+
+    return Flexible(
+      child: Padding(
+        padding: EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
+        child: Text(result),
+      ),
+    );
+  }
+}
+
+class NumberInput extends StatefulWidget {
+  final int defaultNumber;
+  @required
+  final ValueChanged<int> onValueChanged;
+
+  NumberInput({
+    Key key,
+    this.defaultNumber,
+    this.onValueChanged,
+  }) : super(key: key);
+
+  @override
+  _NumberInputState createState() => _NumberInputState();
+}
+
+class _NumberInputState extends State<NumberInput> {
+  int _number;
+
+  @override
+  void initState() {
+    super.initState();
+    _number = widget.defaultNumber;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      child: Row(
+        children: <Widget>[
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _number--;
+              });
+              widget.onValueChanged(_number);
+            },
+            icon: Icon(Icons.maximize),
+          ),
+          Container(
+            width: 30,
+            height: 30,
+            color: Colors.black12,
+            alignment: Alignment.center,
+            child: Text('$_number'),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _number++;
+              });
+              widget.onValueChanged(_number);
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MathContainerBackground extends StatelessWidget {
+  final List<Widget> children;
+
+  const MathContainerBackground({Key key, this.children}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      elevation: 5,
+      child: Column(
+        children: <Widget>[
+          Row(children: children),
+        ],
+      ),
     );
   }
 }
