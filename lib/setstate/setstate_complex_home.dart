@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:state_management_showcase/util/app_util.dart';
 import 'package:state_management_showcase/util/util_index.dart';
 
 class SetStateComplexHomePage extends StatelessWidget {
@@ -43,6 +44,9 @@ class _MathContainerState extends State<MathContainer> {
     setState(() {
       _numOutput = squareNumber;
     });
+    if (squareNumber < 0) {
+      showToast('Invalid number');
+    }
   }
 
   @override

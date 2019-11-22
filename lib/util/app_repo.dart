@@ -55,6 +55,7 @@ class AppRepo {
 
 class CalculatorRepo {
   Future<int> square(int number) async {
+    if (number < 0) return -1;
     return number * number;
   }
 }
