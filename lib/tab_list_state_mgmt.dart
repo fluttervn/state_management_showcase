@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:state_management_showcase/bloc/bloc_simple_main.dart';
 import 'package:state_management_showcase/setstate/setstate_complex_main.dart';
 import 'package:state_management_showcase/setstate/setstate_simple_main.dart';
 import 'package:state_management_showcase/util/app_util.dart';
@@ -7,6 +8,7 @@ import 'package:state_management_showcase/util/app_util.dart';
 final Map<String, Widget> mapScreens = {
   'setState - simple': SetStateSimpleMainPage(),
   'setState - complex': SetStateComplexMainPage(),
+  'flutter_bloc - complex': BlocSimpleMainPage(),
 };
 
 class ListStateManagementPage extends StatelessWidget {
