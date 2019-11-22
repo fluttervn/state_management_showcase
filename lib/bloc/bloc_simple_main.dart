@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:state_management_showcase/util/base_simple.dart';
 
-class BlocSimpleMainPage extends StatefulWidget {
-  @override
-  _BlocSimpleMainPageState createState() => _BlocSimpleMainPageState();
-}
+import 'counter_bloc.dart';
 
-class _BlocSimpleMainPageState extends State<BlocSimpleMainPage> {
-  int _count = 0;
-
+class BlocSimpleMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<CounterBloc>(
+      builder: (context) => CounterBloc(),
+      child: _BlocSimpleChildPage(),
+    );
+  }
+}
+
+class _BlocSimpleChildPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final CounterBloc counterBloc = BlocProvider.of<CounterBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('flutter_bloc - simple'),
       ),
       body: Center(
-        child: TextCounter(_count),
+        child: BlocBuilder<CounterBloc, int>(
+          builder: (context, count) {
+            return TextCounter(count);
+          },
+        ),
       ),
       floatingActionButton: FloatingCounterButtons(
         onPressIncrease: () {
-          setState(() {
-            _count++;
-          });
+          counterBloc.add(CounterEvent.increment);
         },
         onPressDecrease: () {
-          setState(() {
-            _count--;
-          });
+          counterBloc.add(CounterEvent.decrement);
         },
       ),
     );
