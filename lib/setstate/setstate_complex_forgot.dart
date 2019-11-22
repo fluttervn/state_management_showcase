@@ -50,13 +50,13 @@ class _ForgotFormState extends State<ForgotForm> {
         : widget.username;
   }
 
-  _doForgot() async {
+  Future<void> _doForgot() async {
     final popup = createProgressDialog(context, 'Reset password');
 
     setState(() {
       _state = ApiState.loading;
     });
-    popup.show();
+    await popup.show();
 
     ApiState state = await _appRepo.forgotPassword(_expectedResult);
     setState(() {

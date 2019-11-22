@@ -17,6 +17,7 @@ class SetStateComplexHomePage extends StatelessWidget {
 class MathContainer extends StatefulWidget {
   final int defaultNumber;
 
+  // ignore: always_put_required_named_parameters_first
   const MathContainer({Key key, @required this.defaultNumber})
       : assert(defaultNumber != null),
         super(key: key);
