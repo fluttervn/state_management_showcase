@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:state_management_showcase/util/base_simple.dart';
 
-class SetStateCounterMainPage extends StatefulWidget {
+class SetStateCounterPage extends StatefulWidget {
+  final String tag = 'SetStateCounterPage';
+
+  SetStateCounterPage() {
+    print('$tag: init');
+  }
   @override
-  _SetStateCounterMainPageState createState() =>
-      _SetStateCounterMainPageState();
+  _CounterPageState createState() => _CounterPageState();
 }
 
-class _SetStateCounterMainPageState extends State<SetStateCounterMainPage> {
+class _CounterPageState extends State<SetStateCounterPage> {
+  final String tag = '_CounterPageState';
+
   int _count = 0;
 
   @override
@@ -24,11 +30,13 @@ class _SetStateCounterMainPageState extends State<SetStateCounterMainPage> {
         onPressIncrease: () {
           setState(() {
             _count++;
+            print('$tag: increase: count=$_count');
           });
         },
         onPressDecrease: () {
           setState(() {
             _count--;
+            print('$tag: decrease: count=$_count');
           });
         },
       ),

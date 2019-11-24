@@ -8,8 +8,8 @@ import 'package:state_management_showcase/util/util_index.dart';
 import 'setstate/account/setstate_account_intro.dart';
 
 final Map<String, Widget> mapScreens = {
-  'setState - Counter': SetStateCounterMainPage(),
-  'setState - Multi Counter': SetStateMultiCounterMainPage(),
+  'setState - Counter': SetStateCounterPage(),
+  'setState - Multi Counter': SetStateMultiCounterPage(),
   'setState - Login': SetStateAccountIntroPage(),
   'flutter_bloc - simple': BlocSimpleMainPage(),
   'flutter_bloc - complex': BlocComplexLoginPage(),
