@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:state_management_showcase/bloc/bloc_complex_login.dart';
 import 'package:state_management_showcase/bloc/bloc_simple_main.dart';
-import 'package:state_management_showcase/setstate/setstate_counter_main.dart';
-import 'package:state_management_showcase/util/app_util.dart';
+import 'package:state_management_showcase/setstate/setstate_index.dart';
+import 'package:state_management_showcase/util/util_index.dart';
 
 import 'setstate/account/setstate_account_intro.dart';
 
