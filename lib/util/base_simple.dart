@@ -69,8 +69,8 @@ class FloatingCounterButtons extends StatelessWidget {
 }
 
 class TextMultiCounterContainer extends StatelessWidget {
-  final TextCounter leftText;
-  final TextCounter rightText;
+  final Widget leftText;
+  final Widget rightText;
 
   const TextMultiCounterContainer({
     @required this.leftText,
