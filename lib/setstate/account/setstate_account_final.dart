@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:state_management_showcase/util/app_util.dart';
 import 'package:state_management_showcase/util/util_index.dart';
 
-class SetStateComplexHomePage extends StatelessWidget {
+class SetStateAccountFinalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseHomeScaffold(
-      title: 'Homescreen - setState',
-      firstContainer: MathContainer(defaultNumber: 3),
-      secondContainer: MathContainer(defaultNumber: 25),
+      title: 'Final screen - setState',
+      firstContainer: _MathContainer(defaultNumber: 3),
+      secondContainer: _MathContainer(defaultNumber: 25),
     );
   }
 }
 
-class MathContainer extends StatefulWidget {
+class _MathContainer extends StatefulWidget {
   final int defaultNumber;
 
   // ignore: always_put_required_named_parameters_first
-  const MathContainer({Key key, @required this.defaultNumber})
+  const _MathContainer({Key key, @required this.defaultNumber})
       : assert(defaultNumber != null),
         super(key: key);
 
@@ -26,10 +25,11 @@ class MathContainer extends StatefulWidget {
   _MathContainerState createState() => _MathContainerState();
 }
 
-class _MathContainerState extends State<MathContainer> {
+class _MathContainerState extends State<_MathContainer> {
   int _numInput;
   int _numOutput;
 
+  AppRepo repo = AppRepo();
   CalculatorRepo _repo = CalculatorRepo();
 
   @override

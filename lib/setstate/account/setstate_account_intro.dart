@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:state_management_showcase/setstate/setstate_complex_login.dart';
-import 'package:state_management_showcase/util/app_util.dart';
-import 'package:state_management_showcase/util/base_complex.dart';
+import 'package:state_management_showcase/util/util_index.dart';
 
-class SetStateComplexMainPage extends StatelessWidget {
+import 'setstate_account_login.dart';
+
+class SetStateAccountIntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseMainScaffold(
@@ -13,7 +13,7 @@ class SetStateComplexMainPage extends StatelessWidget {
           'of Flutter. Just set the value inside setState() method, then the '
           'whole widget will be rebuilt with new value.',
       onPressGetStart: () {
-        navigateToPage(context, SetStateComplexLoginPage());
+        navigateToPage(context, SetStateAccountLoginPage());
       },
     );
   }

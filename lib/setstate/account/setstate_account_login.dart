@@ -2,32 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:state_management_showcase/util/util_index.dart';
 
-import 'setstate_complex_forgot.dart';
-import 'setstate_complex_home.dart';
+import 'setstate_account_final.dart';
+import 'setstate_account_forgot.dart';
 
 ExpectedResult _expectedResult = ExpectedResult.success;
 
-class SetStateComplexLoginPage extends StatelessWidget {
+class SetStateAccountLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithToggle(
-        title: 'Login - setState',
+        title: 'LoginForm - setState',
         onChanged: (ExpectedResult value) {
           _expectedResult = value;
         },
       ),
-      body: LoginForm(),
+      body: _LoginForm(),
     );
   }
 }
 
-class LoginForm extends StatefulWidget {
+class _LoginForm extends StatefulWidget {
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<_LoginForm> {
   ApiState _state;
   String _username;
   String _password;
@@ -52,7 +52,7 @@ class _LoginFormState extends State<LoginForm> {
       showErrorToast('Login with username failed!');
     } else if (state == ApiState.success) {
       print('Success - will navigate to LoginHomePage');
-      navigateToPageAndReplace(context, SetStateComplexHomePage());
+      navigateToPageAndReplace(context, SetStateAccountFinalPage());
     }
   }
 
@@ -91,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
           onPressed: () {
             navigateToPage(
                 context,
-                SetStateComplexForgotPage(
+                SetStateAccountForgotPage(
                   username: _username,
                 ));
           },

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:state_management_showcase/bloc/bloc_complex_login.dart';
 import 'package:state_management_showcase/bloc/bloc_simple_main.dart';
-import 'package:state_management_showcase/setstate/setstate_complex_main.dart';
 import 'package:state_management_showcase/setstate/setstate_counter_main.dart';
 import 'package:state_management_showcase/util/app_util.dart';
 
+import 'setstate/account/setstate_account_intro.dart';
+
 final Map<String, Widget> mapScreens = {
   'setState - Counter': SetStateCounterMainPage(),
-  'setState - complex': SetStateComplexMainPage(),
+  'setState - Login': SetStateAccountIntroPage(),
   'flutter_bloc - simple': BlocSimpleMainPage(),
   'flutter_bloc - complex': BlocComplexLoginPage(),
 };

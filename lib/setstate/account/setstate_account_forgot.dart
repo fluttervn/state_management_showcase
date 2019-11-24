@@ -6,11 +6,11 @@ import 'package:state_management_showcase/util/base_complex.dart';
 
 ExpectedResult _expectedResult = ExpectedResult.success;
 
-class SetStateComplexForgotPage extends StatelessWidget {
+class SetStateAccountForgotPage extends StatelessWidget {
   final String username;
 
-  SetStateComplexForgotPage({Key key, this.username}) : super(key: key) {
-    print('SetStateComplexForgotPage: username=$username');
+  SetStateAccountForgotPage({Key key, this.username}) : super(key: key) {
+    print('SetStateAccountForgotPage: username=$username');
   }
 
   @override
@@ -22,21 +22,21 @@ class SetStateComplexForgotPage extends StatelessWidget {
           _expectedResult = value;
         },
       ),
-      body: ForgotForm(username: username),
+      body: _ForgotForm(username: username),
     );
   }
 }
 
-class ForgotForm extends StatefulWidget {
+class _ForgotForm extends StatefulWidget {
   final String username;
 
-  const ForgotForm({Key key, this.username}) : super(key: key);
+  const _ForgotForm({Key key, this.username}) : super(key: key);
 
   @override
   _ForgotFormState createState() => _ForgotFormState();
 }
 
-class _ForgotFormState extends State<ForgotForm> {
+class _ForgotFormState extends State<_ForgotForm> {
   ApiState _state;
   String _username;
 
@@ -45,6 +45,9 @@ class _ForgotFormState extends State<ForgotForm> {
   @override
   void initState() {
     super.initState();
+    // Only accept non-null & non-empty username when start app because
+    // when username is null, we don't show any error, but if username
+    // is empty or invalid then error will be shown
     _username = widget.username == null || widget.username.isEmpty
         ? null
         : widget.username;
