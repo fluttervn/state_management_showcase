@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:state_management_showcase/util/account_widgets.dart';
 import 'package:state_management_showcase/util/app_util.dart';
+import 'package:state_management_showcase/util/common_account_widgets.dart';
 
 import 'bloc_complex_login.dart';
 
