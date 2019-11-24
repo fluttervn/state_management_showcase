@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:state_management_showcase/util/base_simple.dart';
 
-class SetStateSimpleMainPage extends StatefulWidget {
+class SetStateCounterMainPage extends StatefulWidget {
   @override
-  _SetStateSimpleMainPageState createState() => _SetStateSimpleMainPageState();
+  _SetStateCounterMainPageState createState() =>
+      _SetStateCounterMainPageState();
 }
 
-class _SetStateSimpleMainPageState extends State<SetStateSimpleMainPage> {
+class _SetStateCounterMainPageState extends State<SetStateCounterMainPage> {
   int _count = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('setState - simple'),
+        title: Text('setState - Counter'),
       ),
       body: Center(
         child: TextCounter(_count),
