@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:state_management_showcase/util/base_simple.dart';
+import 'package:flutter_fimber/flutter_fimber.dart';
+import 'package:state_management_showcase/util/util_index.dart';
 
 class SetStateCounterPage extends StatefulWidget {
-  final String tag = 'SetStateCounterPage';
-
   SetStateCounterPage() {
-    print('$tag: init');
+    Fimber.d('init SetStateCounterPage');
   }
   @override
   _CounterPageState createState() => _CounterPageState();
 }
 
 class _CounterPageState extends State<SetStateCounterPage> {
-  final String tag = '_CounterPageState';
-
   int _count = 0;
 
   @override
@@ -30,13 +27,13 @@ class _CounterPageState extends State<SetStateCounterPage> {
         onPressIncrease: () {
           setState(() {
             _count++;
-            print('$tag: increase: count=$_count');
+            Fimber.d('increase: count=$_count');
           });
         },
         onPressDecrease: () {
           setState(() {
             _count--;
-            print('$tag: decrease: count=$_count');
+            Fimber.d('decrease: count=$_count');
           });
         },
       ),

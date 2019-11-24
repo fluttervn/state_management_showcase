@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:state_management_showcase/tab_list_state_mgmt.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Fimber.plantTree(FimberTree());
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
