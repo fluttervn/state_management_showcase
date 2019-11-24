@@ -12,6 +12,7 @@ final Map<String, Widget> mapScreens = {
   'setState - Login': SetStateAccountIntroPage(),
   'flutter_bloc - Counter': BlocCounterPage(),
   'flutter_bloc - Multi Counter': BlocMultiCounterPage(),
+  'flutter_bloc - Login': BlocAccountIntroPage(),
 };
 
 class ListStateManagementPage extends StatelessWidget {
