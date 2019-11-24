@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:state_management_showcase/bloc/bloc_complex_login.dart';
-import 'package:state_management_showcase/bloc/bloc_simple_main.dart';
+import 'package:state_management_showcase/bloc/bloc_index.dart';
 import 'package:state_management_showcase/setstate/setstate_index.dart';
 import 'package:state_management_showcase/util/util_index.dart';
 
@@ -11,8 +10,8 @@ final Map<String, Widget> mapScreens = {
   'setState - Counter': SetStateCounterPage(),
   'setState - Multi Counter': SetStateMultiCounterPage(),
   'setState - Login': SetStateAccountIntroPage(),
-  'flutter_bloc - simple': BlocSimpleMainPage(),
-  'flutter_bloc - complex': BlocComplexLoginPage(),
+  'flutter_bloc - Counter': BlocCounterPage(),
+//  'flutter_bloc - complex': BlocComplexLoginPage(),
 };
 
 class ListStateManagementPage extends StatelessWidget {
