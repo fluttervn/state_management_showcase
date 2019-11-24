@@ -72,9 +72,8 @@ bool isValidPassword(String password) {
 /// Generates a positive random integer uniformly distributed on the range
 /// from `min`, inclusive, to `max`, exclusive.
 int getRandomTemperature() {
-  Random rnd;
+  Random rnd = Random();
   int min = 20;
   int max = 45;
-  rnd = new Random();
   return min + rnd.nextInt(max - min);
 }
