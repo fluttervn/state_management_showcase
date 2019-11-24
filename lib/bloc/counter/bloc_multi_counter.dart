@@ -13,8 +13,8 @@ class BlocMultiCounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CounterBloc>(
-      builder: (context) => CounterBloc(),
+    return BlocProvider<MultiCounterBloc>(
+      builder: (context) => MultiCounterBloc(),
       child: _BlocMultiCounterChildPage(),
     );
   }
@@ -28,23 +28,31 @@ class _BlocMultiCounterChildPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
-    final CounterBloc counterBloc = BlocProvider.of<CounterBloc>(context);
+    final multiCounterBloc = BlocProvider.of<MultiCounterBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('flutter_bloc - Counter'),
       ),
       body: TextMultiCounterContainer(
-        leftText: BlocBuilder<CounterBloc, int>(
-          builder: (context, count) {
-            Fimber.d('BlocBuilder: left TextCounter($count)');
-            return TextCounter(count, prefix: 'Left:\n');
+        leftText: BlocBuilder<MultiCounterBloc, MultiCounterState>(
+          condition: (prevState, state) {
+            // Only allow state from left FAB
+            return state.isFromLeft;
+          },
+          builder: (context, state) {
+            Fimber.d('BlocBuilder: left TextCounter(${state.count})');
+            return TextCounter(state.count, prefix: 'Left:\n');
           },
         ),
-        rightText: BlocBuilder<CounterBloc, int>(
-          builder: (context, count) {
-            Fimber.d('BlocBuilder: right TextCounter($count)');
-            return TextCounter(count, prefix: 'Right:\n');
+        rightText: BlocBuilder<MultiCounterBloc, MultiCounterState>(
+          condition: (prevState, state) {
+            // Only allow state from right FAB
+            return !state.isFromLeft;
+          },
+          builder: (context, state) {
+            Fimber.d('BlocBuilder: right TextCounter(${state.count})');
+            return TextCounter(state.count, prefix: 'Right:\n');
           },
         ),
       ),
@@ -53,22 +61,22 @@ class _BlocMultiCounterChildPage extends StatelessWidget {
           tag: 'left',
           onPressIncrease: () {
             Fimber.d('left: onPressIncrease()');
-            counterBloc.add(CounterEvent.increment);
+            multiCounterBloc.add(MultiCounterEvent.increaseLeft);
           },
           onPressDecrease: () {
             Fimber.d('left: onPressDecrease()');
-            counterBloc.add(CounterEvent.decrement);
+            multiCounterBloc.add(MultiCounterEvent.decreaseLeft);
           },
         ),
         rightFab: FloatingCounterButtons(
           tag: 'right',
           onPressIncrease: () {
             Fimber.d('right: onPressIncrease()');
-            counterBloc.add(CounterEvent.increment);
+            multiCounterBloc.add(MultiCounterEvent.increaseRight);
           },
           onPressDecrease: () {
             Fimber.d('right: onPressDecrease()');
-            counterBloc.add(CounterEvent.decrement);
+            multiCounterBloc.add(MultiCounterEvent.decreaseRight);
           },
         ),
       ),
