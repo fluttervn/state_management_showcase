@@ -28,7 +28,8 @@ dependencies:
   equatable:
   flutter_bloc:
   provider: ^3.1.0+1
-  flutter_hud: any
+  flutter_hud:
+  flutter_fimber:
 
 dev_dependencies:
   flutter_test:
