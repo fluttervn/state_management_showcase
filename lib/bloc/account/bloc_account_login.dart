@@ -80,23 +80,46 @@ class _BlocLoginForm extends StatelessWidget {
             );
           },
         ),
-        BlocBuilder<AccountBloc, AccountState>(
-          condition: (prevState, state) {
-            return state is UpdateButtonState;
-          },
-          builder: (context, state) {
-            Fimber.d('ButtonLoginWithUsername: state=$state');
-            bool isEnable =
-                state is UpdateButtonState ? state.isButtonEnable : false;
-            bool isLoading =
-                state is UpdateButtonState ? state.isButtonLoading : false;
-            return ButtonLoginWithUsername(
-              text: 'Login with username & password',
-              onPressed: () {},
-              isEnable: isEnable,
-              isLoading: isLoading,
-            );
-          },
+        BlocListener(
+          listener: (context, state) {},
+          child: BlocBuilder<AccountBloc, AccountState>(
+            condition: (prevState, state) {
+              return state is ValidationButtonToEnable ||
+                  state is ValidationButtonToDisable ||
+                  state is RequestGetStarted ||
+                  state is RequestSuccess ||
+                  state is RequestFailed;
+            },
+            builder: (context, state) {
+              Fimber.d('ButtonLoginWithUsername: state=$state');
+              bool isEnable;
+              bool isLoading;
+              if (state is UninitializedValidation) {
+                isLoading = false;
+                isEnable = false;
+              } else if (state is ValidationButtonToEnable) {
+                isLoading = false;
+                isEnable = true;
+              } else if (state is ValidationButtonToDisable) {
+                isLoading = false;
+                isEnable = true;
+              } else if (state is RequestGetStarted) {
+                isLoading = true;
+                isEnable = true;
+              } else if (state is RequestSuccess || state is RequestFailed) {
+                isLoading = false;
+                isEnable = true;
+              }
+              return ButtonLoginWithUsername(
+                text: 'Login with username & password',
+                onPressed: () {
+                  accountBloc.add(LoginEvent());
+                },
+                isEnable: isEnable,
+                isLoading: isLoading,
+              );
+            },
+          ),
         ),
         ButtonResetName(
           onPressed: () {

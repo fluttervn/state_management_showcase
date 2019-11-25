@@ -4,6 +4,9 @@ import 'package:state_management_showcase/util/util_index.dart';
 
 abstract class AccountEvent extends Equatable {
   const AccountEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
 class UsernameValidationEvent extends AccountEvent {
@@ -24,6 +27,15 @@ class PasswordValidationEvent extends AccountEvent {
   List<Object> get props => [password];
 }
 
+class LoginEvent extends AccountEvent {
+  final ExpectedResult expectedResult;
+
+  const LoginEvent({this.expectedResult});
+
+  @override
+  List<Object> get props => [expectedResult];
+}
+
 abstract class AccountState extends Equatable {
   const AccountState();
 
@@ -41,22 +53,25 @@ class PasswordValidationFailed extends AccountState {}
 
 class PasswordValidationSuccess extends AccountState {}
 
-class UpdateButtonState extends AccountState {
-  final bool isButtonEnable;
-  final bool isButtonLoading;
+class ValidationButtonToEnable extends AccountState {}
 
-  const UpdateButtonState({
-    this.isButtonEnable,
-    this.isButtonLoading,
-  });
+class ValidationButtonToDisable extends AccountState {}
 
-  @override
-  List<Object> get props => [isButtonEnable, isButtonLoading];
-}
+class RequestGetStarted extends AccountState {}
+
+class RequestSuccess extends AccountState {}
+
+class RequestFailed extends AccountState {}
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   String _email;
   String _password;
+
+  AppRepo _appRepo;
+
+  AccountBloc() {
+    _appRepo = AppRepo();
+  }
 
   @override
   AccountState get initialState => UninitializedValidation();
@@ -95,21 +110,24 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       } else {
         yield PasswordValidationSuccess();
       }
+    } else if (event is LoginEvent) {
+      yield RequestGetStarted();
+
+      ApiState apiState = await _appRepo.login(event.expectedResult);
+      if (apiState == ApiState.success) {
+        yield RequestSuccess();
+      } else {
+        yield RequestFailed();
+      }
     }
 
     if (isValidatingData) {
       // If username or password is invalid, don't enable button
-      bool isButtonEnable = validUsername && validPassword;
-      yield UpdateButtonState(
-        isButtonEnable: isButtonEnable,
-        isButtonLoading: false,
-      );
-    } else if (isPerformingNetwork) {
-      // Update button with loading state
-      yield UpdateButtonState(
-        isButtonEnable: true,
-        isButtonLoading: true,
-      );
+      if (validUsername && validPassword) {
+        yield ValidationButtonToEnable();
+      } else {
+        yield ValidationButtonToDisable();
+      }
     }
   }
 }
