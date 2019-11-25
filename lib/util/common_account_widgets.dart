@@ -191,7 +191,7 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     String errorText;
     if (true == showError) {
-      errorText = 'Password must have $passwordMaxLength - '
+      errorText = 'Password must have $passwordMinLength - '
           '$passwordMaxLength char';
     }
 
@@ -202,7 +202,7 @@ class PasswordTextField extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
           prefixIcon: Icon(Icons.vpn_key),
           labelText: 'Password',
-          hintText: 'Password must have $passwordMaxLength - '
+          hintText: 'Password must have $passwordMinLength - '
               '$passwordMaxLength char',
           errorText: errorText,
         ),
