@@ -102,7 +102,7 @@ class _BlocLoginForm extends StatelessWidget {
                 isEnable = true;
               } else if (state is ValidationButtonToDisable) {
                 isLoading = false;
-                isEnable = true;
+                isEnable = false;
               } else if (state is RequestGetStarted) {
                 isLoading = true;
                 isEnable = true;
