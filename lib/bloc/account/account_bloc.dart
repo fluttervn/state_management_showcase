@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:state_management_showcase/util/util_index.dart';
 
 abstract class AccountEvent extends Equatable {
@@ -64,8 +65,17 @@ class RequestSuccess extends AccountState {}
 class RequestFailed extends AccountState {}
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
+  // Keep the previous email
   String _email;
+
+  // Keep the previous password
   String _password;
+
+  // Keep the valid state of username
+  bool _validUsername = false;
+
+  // Keep the valid state of password
+  bool _validPassword = false;
 
   AppRepo _appRepo;
 
@@ -79,20 +89,17 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   @override
   Stream<AccountState> mapEventToState(AccountEvent event) async* {
     bool isValidatingData = false;
-    bool isPerformingNetwork = false;
 
-    bool validUsername = true;
-    bool validPassword = true;
-
+    Fimber.d('... processing $event');
     if (event is UsernameValidationEvent) {
       isValidatingData = true;
 
       _email = event.username;
-      validUsername = isValidUsername(_email);
+      _validUsername = isValidUsername(_email);
 
       // The first time, email is null, so we don't need to show the error
       // Only show error when user starts typing anything in Username TextField
-      if (!validUsername && _email != null) {
+      if (!_validUsername && _email != null) {
         yield EmailValidationFailed();
       } else {
         yield EmailValidationSuccess();
@@ -101,11 +108,11 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       isValidatingData = true;
 
       _password = event.password;
-      validPassword = isValidPassword(_password);
+      _validPassword = isValidPassword(_password);
 
       // The first time, password is null, so we don't need to show the error
       // Only show error when user starts typing anything in Password TextField
-      if (!validPassword && _password != null) {
+      if (!_validPassword && _password != null) {
         yield PasswordValidationFailed();
       } else {
         yield PasswordValidationSuccess();
@@ -122,8 +129,10 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     }
 
     if (isValidatingData) {
+      Fimber.d('isValidatingData: validUsername=$_validUsername, '
+          'validPassword=$_validPassword');
       // If username or password is invalid, don't enable button
-      if (validUsername && validPassword) {
+      if (_validUsername && _validPassword) {
         yield ValidationButtonToEnable();
       } else {
         yield ValidationButtonToDisable();

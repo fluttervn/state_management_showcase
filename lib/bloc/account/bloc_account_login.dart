@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fimber/flutter_fimber.dart';
+import 'package:flutter_hud/flutter_hud.dart';
 import 'package:state_management_showcase/util/util_index.dart';
 
 import 'account_bloc.dart';
+import 'bloc_account_final.dart';
 
 ExpectedResult _expectedResult = ExpectedResult.success;
 
@@ -42,6 +44,7 @@ class _BlocLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     // ignore: close_sinks
     final AccountBloc accountBloc = BlocProvider.of<AccountBloc>(context);
+
     return InputUsernameFormContainer(
       children: <Widget>[
         BlocBuilder<AccountBloc, AccountState>(
@@ -81,7 +84,27 @@ class _BlocLoginForm extends StatelessWidget {
           },
         ),
         BlocListener<AccountBloc, AccountState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            Fimber.d('BlocListener DONE: $state');
+            final PopupHUD popup = createProgressDialog(context, 'Login');
+            if (state is RequestGetStarted) {
+              popup.show();
+            } else if (state is RequestFailed) {
+              popup.dismiss();
+              showErrorToast('Login with username failed!');
+            } else if (state is RequestSuccess) {
+              popup.dismiss();
+              print('Success - will navigate to LoginHomePage');
+              navigateToPage(context, BlocAccountFinalPage());
+            }
+          },
+          condition: (prevState, state) {
+            return state is ValidationButtonToEnable ||
+                state is ValidationButtonToDisable ||
+                state is RequestGetStarted ||
+                state is RequestSuccess ||
+                state is RequestFailed;
+          },
           child: BlocBuilder<AccountBloc, AccountState>(
             condition: (prevState, state) {
               return state is ValidationButtonToEnable ||
@@ -113,7 +136,9 @@ class _BlocLoginForm extends StatelessWidget {
               return ButtonLoginWithUsername(
                 text: 'Login with username & password',
                 onPressed: () {
-                  accountBloc.add(LoginEvent());
+                  Fimber.d('ButtonLoginWithUsername: do login with '
+                      'expectedResult=$_expectedResult');
+                  accountBloc.add(LoginEvent(expectedResult: _expectedResult));
                 },
                 isEnable: isEnable,
                 isLoading: isLoading,
