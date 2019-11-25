@@ -80,7 +80,7 @@ class _BlocLoginForm extends StatelessWidget {
             );
           },
         ),
-        BlocListener(
+        BlocListener<AccountBloc, AccountState>(
           listener: (context, state) {},
           child: BlocBuilder<AccountBloc, AccountState>(
             condition: (prevState, state) {
