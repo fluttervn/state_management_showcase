@@ -7,6 +7,7 @@ import 'package:state_management_showcase/util/util_index.dart';
 
 import 'account_bloc.dart';
 import 'bloc_account_final.dart';
+import 'bloc_account_forgot.dart';
 
 ExpectedResult _expectedResult = ExpectedResult.success;
 
@@ -148,11 +149,11 @@ class _BlocLoginForm extends StatelessWidget {
         ),
         ButtonResetName(
           onPressed: () {
-            /*navigateToPage(
+            navigateToPage(
                 context,
-                SetStateAccountForgotPage(
-                  username: _username,
-                ));*/
+                BlocAccountForgotPage(
+                  username: accountBloc.username,
+                ));
           },
         ),
       ],
