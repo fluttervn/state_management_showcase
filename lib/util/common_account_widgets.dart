@@ -395,7 +395,10 @@ class _NumberInputState extends State<NumberInput> {
               });
               widget.onValueChanged(_number);
             },
-            icon: Icon(Icons.maximize),
+            icon: Text(
+              '—',
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 22),
+            ),
           ),
           Container(
             width: 30,
