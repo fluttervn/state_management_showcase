@@ -65,8 +65,8 @@ class RequestSuccess extends AccountState {}
 class RequestFailed extends AccountState {}
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
-  // Keep the previous email
-  String _email;
+  // Keep the previous username
+  String _username;
 
   // Keep the previous password
   String _password;
@@ -83,6 +83,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     _appRepo = AppRepo();
   }
 
+  String get username => _username;
+
   @override
   AccountState get initialState => UninitializedValidation();
 
@@ -94,12 +96,12 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     if (event is UsernameValidationEvent) {
       isValidatingData = true;
 
-      _email = event.username;
-      _validUsername = isValidUsername(_email);
+      _username = event.username;
+      _validUsername = isValidUsername(_username);
 
       // The first time, email is null, so we don't need to show the error
       // Only show error when user starts typing anything in Username TextField
-      if (!_validUsername && _email != null) {
+      if (!_validUsername && _username != null) {
         yield EmailValidationFailed();
       } else {
         yield EmailValidationSuccess();
