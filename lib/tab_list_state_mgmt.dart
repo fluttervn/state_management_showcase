@@ -9,6 +9,7 @@ import 'setstate/account/setstate_account_intro.dart';
 final Map<String, Widget> mapScreens = {
   'setState - Counter': SetStateCounterPage(),
   'setState - Multi Counter': SetStateMultiCounterPage(),
+  'setState - Timer': SetStateTimerPage(),
   'setState - Login': SetStateAccountIntroPage(),
   'flutter_bloc - Counter': BlocCounterPage(),
   'flutter_bloc - Multi Counter': BlocMultiCounterPage(),

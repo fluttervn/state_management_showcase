@@ -116,22 +116,17 @@ class _BlocLoginForm extends StatelessWidget {
             },
             builder: (context, state) {
               Fimber.d('ButtonLoginWithUsername: state=$state');
-              bool isEnable;
-              bool isLoading;
+              bool isLoading = state is RequestGetStarted ? true : false;
+              bool isEnable = false;
               if (state is UninitializedValidation) {
-                isLoading = false;
                 isEnable = false;
               } else if (state is ValidationButtonToEnable) {
-                isLoading = false;
                 isEnable = true;
               } else if (state is ValidationButtonToDisable) {
-                isLoading = false;
                 isEnable = false;
               } else if (state is RequestGetStarted) {
-                isLoading = true;
-                isEnable = true;
+                isEnable = false;
               } else if (state is RequestSuccess || state is RequestFailed) {
-                isLoading = false;
                 isEnable = true;
               }
               return ButtonLoginWithUsername(
