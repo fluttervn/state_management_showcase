@@ -77,3 +77,8 @@ int getRandomTemperature() {
   int max = 45;
   return min + rnd.nextInt(max - min);
 }
+
+String formatDateTimeToTimer(DateTime dateTime) {
+  return '${dateTime.year}-${dateTime.month}-${dateTime.day} '
+      '${dateTime.hour}:${dateTime.minute}:${dateTime.second}';
+}

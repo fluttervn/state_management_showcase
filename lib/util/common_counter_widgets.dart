@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_util.dart';
+
 class FloatingCounterContainer extends StatelessWidget {
   final FloatingCounterButtons leftFab;
   final FloatingCounterButtons rightFab;
@@ -56,7 +58,7 @@ class FloatingCounterButtons extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 5.0),
+          padding: EdgeInsets.symmetric(vertical: 5),
           child: FloatingActionButton(
             heroTag: '${tag}_fab_decrease',
             onPressed: onPressDecrease,
@@ -115,5 +117,18 @@ class TextCounter extends StatelessWidget {
       text = '$prefix$text';
     }
     return Text(text, style: TextStyle(fontSize: 24));
+  }
+}
+
+class TextTimer extends StatelessWidget {
+  final DateTime value;
+
+  const TextTimer({this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    DateTime now = value ?? DateTime.now();
+    var strDate = formatDateTimeToTimer(now);
+    return Text(strDate, style: TextStyle(fontSize: 24));
   }
 }
